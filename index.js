@@ -1,23 +1,26 @@
 /**
- * @file HorizCenter.js
+ * @file hrzcenter.js
  */
-module.exports = class extends mofron.layout.Base {
+mofron.layout.HrzCenter = class extends mofron.Layout {
     constructor (rt) {
         try {
             super();
-            var _rt = (rt === undefined) ? 80 : rt;
-            this.rate = _rt;
+            this.rate = (rt === undefined) ? 80 : rt;
         } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
     
-    layoutFunc (idx, tgt) {
+    layoutConts (idx, tgt) {
         try {
-            tgt.getVdom().setStyle('width'   , this.rate + '%');
-            tgt.getVdom().setStyle('position', 'relative');
-            tgt.getVdom().setStyle('left'    , (100 - this.rate)/2 + '%');
+            tgt.style('width', '100%');
+            if ('fixed' === tgt.style('position')) {
+                tgt.style('position');
+            }
+            tgt.style('width'   , this.rate + '%');
+            tgt.style('position', 'relative');
+            tgt.style('left'    , (100 - this.rate)/2 + '%');
         } catch (e) {
             console.error(e.stack);
             throw e;

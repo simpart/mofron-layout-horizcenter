@@ -1,13 +1,10 @@
 {
   "name": "mofron-layout-hrzcenter",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "horizon center layout of mofron",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "mofron" : "^0.0.1"
   },
   "repository": {
     "type": "git",
@@ -16,10 +13,12 @@
   "keywords": [
     "mofron"
   ],
-  "author": "simpart",
+  "author": "simparts",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/simpart/mofron-layout-hrzcenter/issues"
   },
-  "homepage": "https://github.com/simpart/mofron-layout-hrzcenter#readme"
+  "homepage": "https://github.com/simpart/mofron-layout-hrzcenter#readme",
+  "devDependencies": {
+  }
 }
