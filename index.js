@@ -12,8 +12,9 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     constructor (rt) {
         try {
             super();
+            this.name('HrzCenter');
             this.m_rate = null;
-            this.rate((rt === undefined) ? 80 : rt);
+            this.rate(rt);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -38,10 +39,11 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 return this.m_rate;
             }
             /* setter */
-            if ( ('number' !== typeof rt) ||
-                 (       0  >  rt)        ||
-                 (      99  <  rt) ) {
+            if ('number' !== typeof rt) {
                 throw new Error('invalid parameter');
+            }
+            if (0 > rt) {
+                throw new Error('invalid prameter');
             }
             this.m_rate = rt;
         } catch (e) {
