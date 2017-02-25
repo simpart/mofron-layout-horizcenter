@@ -13,7 +13,7 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         try {
             super();
             this.name('HrzCenter');
-            this.m_rate = null;
+            this.m_rate = 80;
             this.rate(rt);
         } catch (e) {
             console.error(e.stack);
@@ -46,6 +46,9 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 throw new Error('invalid prameter');
             }
             this.m_rate = rt;
+            if (true === this..isRendered()) {
+                this.layout();
+            }
         } catch (e) {
             console.error(e.stack);
             throw e;
