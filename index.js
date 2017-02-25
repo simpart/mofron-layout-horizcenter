@@ -46,7 +46,7 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 throw new Error('invalid prameter');
             }
             this.m_rate = rt;
-            if (true === this..isRendered()) {
+            if (true === this.isRendered()) {
                 this.layout();
             }
         } catch (e) {
