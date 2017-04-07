@@ -6,6 +6,7 @@
 /**
  * @class HrzCenter
  * @brief horizon center layout
+ * @note this is interface class
  */
 mofron.layout.HrzCenter = class extends mofron.Layout {
     
@@ -14,19 +15,6 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
             super();
             this.name('HrzCenter');
             this.rate(rt);
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    layoutConts (idx, tgt) {
-        try {
-            tgt.style({
-                'width'    : this.rate() + '%',
-                'position' : 'relative',
-                'left'     : (100 - this.rate())/2 + '%'
-            });
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -53,4 +41,5 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         }
     }
 }
+mofron.layout.hrzcenter = {};
 module.exports = mofron.layout.HrzCenter;
