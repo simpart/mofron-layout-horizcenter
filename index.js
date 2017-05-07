@@ -2,7 +2,6 @@
  * @file mofron-layout-hrzcenter/index.js
  * @author simpart
  */
-require('mofron-event-common');
 
 /**
  * @class HrzCenter
@@ -23,6 +22,9 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     
     layoutConts (idx, tgt) {
         try {
+            if (true === this.isPadding()) {
+                return;
+            }
             tgt.style({
                 position : 'relative'
             });
@@ -33,20 +35,25 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                     left  : (100 - this.rate())/2 + '%'
                 });
             } else if (null !== this.width()) {
-                this.target().prmOpt({
-                    addChild : new mofron.Param(
-                                   new mofron.Component({
-                                       addChild : tgt,
-                                       style    : {
-                                             width    : '50%',
-                                             position : 'relative',
-                                             left     : '50%'
-                                       }
-                                   }),
-                                   tgt.visible(),
-                                   (0 === this.target().child().length) ? 0 : idx
-                               )
+                this.isPadding(true);
+                var ins_cmp =  new mofron.Component({
+                                   addChild : tgt,
+                                   style    : {
+                                       width    : '50%',
+                                       position : 'relative',
+                                       left     : '50%'
+                                   }
+                               });
+                ins_cmp.vdom().attr({
+                    layout : 'mofron-layout-hrzcenter'
                 });
+                
+                this.target().addChild(
+                    ins_cmp,
+                    tgt.visible(),
+                    (0 === this.target().child().length) ? 0 : idx
+                );
+                this.isPadding(false);
                 tgt.style({
                     left : '-' + this.width()/2 + 'px'
                 });
@@ -88,6 +95,23 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 throw new Error('invalid parameter');
             }
             this.m_width = wid;
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    isPadding (flg) {
+        try {
+            if (undefined === flg) {
+                /* getter */
+                return (undefined === this.m_padding) ? false : this.m_padding;
+            }
+            /* setter */
+            if ('boolean' !== typeof flg) {
+                throw new Error('invalid parameter');
+            }
+            this.m_padding = flg;
         } catch (e) {
             console.error(e.stack);
             throw e;
