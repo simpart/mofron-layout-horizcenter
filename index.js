@@ -25,37 +25,25 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
             if (true === this.isPadding()) {
                 return;
             }
-            tgt.style({
-                position : 'relative'
-            });
             
             if (null !== this.rate()) {
-                tgt.style({
-                    width : this.rate() + '%',
-                    left  : (100 - this.rate())/2 + '%'
-                });
-            } else if (null !== this.width()) {
-                this.isPadding(true);
-                var ins_cmp =  new mofron.Component({
-                                   addChild : tgt,
-                                   style    : {
-                                       width    : '50%',
-                                       position : 'relative',
-                                       left     : '50%'
-                                   }
-                               });
-                ins_cmp.vdom().attr({
-                    layout : 'mofron-layout-hrzcenter'
+                tgt.vdom().style({
+                    position : 'relative',
+                    left     : (100 - this.rate())/2 + '%'
                 });
                 
-                this.target().addChild(
-                    ins_cmp,
-                    tgt.visible(),
-                    (0 === this.target().child().length) ? 0 : idx
-                );
-                this.isPadding(false);
+                if ('function' === typeof tgt.width) {
+                    tgt.width(this.rate() + '%');
+                } else {
+                    tgt.vdom().style({
+                        width    : this.rate() + '%',
+                    });
+                }
+            } else if (null !== this.width()) {
                 tgt.style({
-                    left : '-' + this.width()/2 + 'px'
+                    position       : 'relative',
+                    'margin-left'  : 'auto',
+                    'margin-right' : 'auto'
                 });
             }
         } catch (e) {
