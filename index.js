@@ -22,16 +22,17 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     
     layoutConts (idx, tgt) {
         try {
-            if (true === this.isPadding()) {
-                return;
-            }
-            
             if (null !== this.rate()) {
-                tgt.vdom().style({
-                    position : 'relative',
-                    left     : (100 - this.rate())/2 + '%'
-                });
-                
+                let type = this.type();
+                if (null === type) {
+                    tgt.vdom().style({
+                        position : 'relative'
+                    });
+                } else {
+                    var set_style = {};
+                    set_style[type+'-left'] =  (100 - this.rate())/2 + '%';
+                    tgt.vdom().style(set_style);
+                }
                 if ('function' === typeof tgt.width) {
                     tgt.width(this.rate() + '%');
                 } else {
@@ -89,17 +90,18 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         }
     }
     
-    isPadding (flg) {
+    type (tp) {
         try {
-            if (undefined === flg) {
+            if (undefined === tp) {
                 /* getter */
-                return (undefined === this.m_padding) ? false : this.m_padding;
+                return (undefined === this.m_type) ? null : this.m_type;
             }
             /* setter */
-            if ('boolean' !== typeof flg) {
+            if ( ('string' !== typeof tp) ||
+                 !(('padding' === tp) || ('margin' === tp)) ) {
                 throw new Error('invalid parameter');
             }
-            this.m_padding = flg;
+            this.m_type = tp;
         } catch (e) {
             console.error(e.stack);
             throw e;
