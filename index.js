@@ -26,7 +26,8 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 let type = this.type();
                 if (null === type) {
                     tgt.vdom().style({
-                        position : 'relative'
+                        position : 'relative',
+                        left     : (100 - this.rate())/2 + '%'
                     });
                 } else {
                     var set_style = {};
