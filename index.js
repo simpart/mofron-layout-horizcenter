@@ -9,11 +9,11 @@
  */
 mofron.layout.HrzCenter = class extends mofron.Layout {
     
-    constructor (op) {
+    constructor (po) {
         try {
             super();
             this.name('HrzCenter');
-            this.prmOpt(op);
+            ('number' === typeof po) ? this.rate(po) : this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -25,19 +25,19 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
             if (null !== this.rate()) {
                 let type = this.type();
                 if (null === type) {
-                    tgt.vdom().style({
+                    tgt.adom().style({
                         position : 'relative',
                         left     : (100 - this.rate())/2 + '%'
                     });
                 } else {
                     var set_style = {};
                     set_style[type+'-left'] =  (100 - this.rate())/2 + '%';
-                    tgt.vdom().style(set_style);
+                    tgt.adom().style(set_style);
                 }
                 if ('function' === typeof tgt.width) {
                     tgt.width(this.rate() + '%');
                 } else {
-                    tgt.vdom().style({
+                    tgt.adom().style({
                         width    : this.rate() + '%',
                     });
                 }
@@ -65,7 +65,7 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 throw new Error('invalid parameter');
             }
             this.m_rate = rt;
-            if ((null !== this.target()) && (true === this.target().vdom().isPushed())) {
+            if ((null !== this.target()) && (true === this.target().adom().isPushed())) {
                 this.execute();
             }
         } catch (e) {
