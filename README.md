@@ -1,4 +1,4 @@
-# mofron-layout-horizcenter
+# mofron-layout-hrzcenter
 Horizon Center Layout for mofron component.<br>
 please see [here](https://github.com/simpart/mofron) about an overview of mofron.
 
