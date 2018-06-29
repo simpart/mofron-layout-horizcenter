@@ -13,6 +13,20 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         try {
             super();
             this.name('HrzCenter');
+            
+            this.prmCheck(
+                (p1) => {
+                    try {
+                        if ('number' !== typeof p1) {
+                            throw new Error('invalid parameter');
+                        }
+                    } catch (e) {
+                        console.error(e.stack);
+                        throw e;
+                    }
+                }
+            );
+            
             this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
@@ -22,23 +36,24 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     
     layoutConts (idx, tgt) {
         try {
-            if (null !== this.value()) {
+            let prm = this.param()[0];
+            if (null !== prm) {
                 let type = this.type();
                 if (null === type) {
                     tgt.adom().style({
                         position : 'relative',
-                        left     : (100 - this.value())/2 + '%'
+                        left     : (100 - prm)/2 + '%'
                     });
                 } else {
                     var set_style = {};
-                    set_style[type+'-left'] =  (100 - this.value())/2 + '%';
+                    set_style[type+'-left'] =  (100 - prm)/2 + '%';
                     tgt.adom().style(set_style);
                 }
                 if ('function' === typeof tgt.width) {
-                    tgt.width(this.value() + '%');
+                    tgt.width(prm + '%');
                 } else {
                     tgt.adom().style({
-                        width    : this.value() + '%',
+                        width    : prm + '%',
                     });
                 }
             } else if (null !== this.width()) {
@@ -48,18 +63,6 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                     'margin-right' : 'auto'
                 });
             }
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    value (prm) {
-        try {
-            if ( (undefined !== prm) && ('number' !== typeof prm) ) {
-                throw new Error('invalid parameter');
-            }
-            return super.value(prm);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -102,3 +105,4 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     }
 }
 module.exports = mofron.layout.HrzCenter;
+/* end of file */
