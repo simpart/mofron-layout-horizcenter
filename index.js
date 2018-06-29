@@ -13,7 +13,7 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         try {
             super();
             this.name('HrzCenter');
-            ('number' === typeof po) ? this.rate(po) : this.prmOpt(po);
+            this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -22,23 +22,23 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     
     layoutConts (idx, tgt) {
         try {
-            if (null !== this.rate()) {
+            if (null !== this.value()) {
                 let type = this.type();
                 if (null === type) {
                     tgt.adom().style({
                         position : 'relative',
-                        left     : (100 - this.rate())/2 + '%'
+                        left     : (100 - this.value())/2 + '%'
                     });
                 } else {
                     var set_style = {};
-                    set_style[type+'-left'] =  (100 - this.rate())/2 + '%';
+                    set_style[type+'-left'] =  (100 - this.value())/2 + '%';
                     tgt.adom().style(set_style);
                 }
                 if ('function' === typeof tgt.width) {
-                    tgt.width(this.rate() + '%');
+                    tgt.width(this.value() + '%');
                 } else {
                     tgt.adom().style({
-                        width    : this.rate() + '%',
+                        width    : this.value() + '%',
                     });
                 }
             } else if (null !== this.width()) {
@@ -54,20 +54,12 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         }
     }
     
-    rate (rt) {
+    value (prm) {
         try {
-            if (undefined === rt) {
-                /* getter */
-                return (undefined === this.m_rate) ? null : this.m_rate;
-            }
-            /* setter */
-            if (('number' !== typeof rt) || (0 > rt)) {
+            if ( (undefined !== prm) && ('number' !== typeof prm) ) {
                 throw new Error('invalid parameter');
             }
-            this.m_rate = rt;
-            if ((null !== this.target()) && (true === this.target().adom().isPushed())) {
-                this.execute();
-            }
+            return super.value(prm);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -109,5 +101,4 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         }
     }
 }
-mofron.layout.hrzcenter = {};
 module.exports = mofron.layout.HrzCenter;
