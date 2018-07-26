@@ -9,46 +9,12 @@
  */
 mofron.layout.HrzCenter = class extends mofron.Layout {
     
-    constructor (po) {
+    constructor (po, p2) {
         try {
             super();
             this.name('HrzCenter');
-            this.prmOpt(po);
-            
-            this.getParam().check(
-                /* rate */
-                (rt) => {
-                    try {
-                        if ('number' !== typeof rt) {
-                            throw new Error('invalid parameter');
-                        }
-                        if ((0 > rt) || (100 < rt)) {
-                            throw new Error('invalid parameter');
-                        }
-                    } catch (e) {
-                        console.error(e.stack);
-                        throw e;
-                    }
-                },
-                /* type */
-                (tp) => {
-                    try {
-                        if (undefined === tp) {
-                            return 'relative';
-                        }
-                        if ('string' !== typeof tp) {
-                            throw new Error('invalid parameter');
-                        }
-                        if (('relative' !== tp) && ('margin' !== tp) && ('padding' !== tp)) {
-                            throw new Error('invalid parameter');
-                        }
-                    } catch (e) {
-                        console.error(e.stack);
-                        throw e;
-                    }
-                },
-            );
-            
+            this.prmMap('rate', 'type');
+            this.prmOpt(po, p2);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -57,21 +23,58 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
     
     contents (idx, tgt) {
         try {
-            let rate = this.value()[0];
-            let type = this.value()[1];
-            
-            if ('relative' === type) {
+            if ('relative' === this.type()) {
                 tgt.adom().style({
-                    position : type,
-                    left     : (100 -rate)/2 + '%'
+                    position : this.type(),
+                    left     : (100 - this.rate())/2 + '%'
                 });
             } else {
                 let set_style = {};
-                set_style[type+'-left'] =  (100 - rate)/2 + '%';
+                set_style[this.type() + '-left'] =  (100 - this.rate())/2 + '%';
                 tgt.adom().style(set_style);
             }
             
-            tgt.width(rate + '%');
+            tgt.width(this.rate() + '%');
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    rate (prm) {
+        try {
+            if (undefined === prm) {
+                /* getter */
+                return (undefined === this.m_rate) ? 80 : this.m_rate;
+            }
+            /* setter */
+            if ('number' !== typeof prm) {
+                throw new Error('invalid parameter');
+            }
+            if ((0 > prm) || (100 < prm)) {
+                throw new Error('invalid parameter');
+            }
+            this.m_rate = prm;
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    type (prm) {
+        try {
+            if (undefined === prm) {
+                /* getter */
+                return (undefined === this.m_type) ? 'relative' : this.m_type;
+            }
+            /* setter */
+            if ('string' !== typeof prm) {
+                throw new Error('invalid parameter');
+            }
+            if (('relative' !== prm) && ('margin' !== prm) && ('padding' !== prm)) {
+                throw new Error('invalid parameter');
+            }
+            this.m_type = prm;
         } catch (e) {
             console.error(e.stack);
             throw e;
