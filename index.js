@@ -33,9 +33,7 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
                 set_style[this.type() + '-left'] =  (100 - this.rate())/2 + '%';
                 tgt.adom().style(set_style);
             }
-            tgt.execOption({
-                width : new mf.Param(this.rate(), '%')
-            });
+            mofron.func.compSize(tgt, 'width', this.rate() + '%');
         } catch (e) {
             console.error(e.stack);
             throw e;
