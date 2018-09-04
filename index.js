@@ -2,12 +2,12 @@
  * @file mofron-layout-hrzcenter/index.js
  * @author simpart
  */
-
+const mf = require('mofron');
 /**
  * @class HrzCenter
  * @brief horizon center layout
  */
-mofron.layout.HrzCenter = class extends mofron.Layout {
+mf.layout.HrzCenter = class extends mf.Layout {
     
     constructor (po, p2) {
         try {
@@ -26,14 +26,14 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
             if ('relative' === this.type()) {
                 tgt.adom().style({
                     position : this.type(),
-                    left     : (100 - this.rate())/2 + '%'
+                    left     : (100 - this.rate().value())/2 + '%'
                 });
             } else {
                 let set_style = {};
-                set_style[this.type() + '-left'] =  (100 - this.rate())/2 + '%';
+                set_style[this.type() + '-left'] =  (100 - this.rate().value())/2 + '%';
                 tgt.adom().style(set_style);
             }
-            mofron.func.compSize(tgt, 'width', this.rate() + '%');
+            tgt.width(this.rate());
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -44,16 +44,12 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         try {
             if (undefined === prm) {
                 /* getter */
-                return (undefined === this.m_rate) ? 80 : this.m_rate;
+                return (undefined === this.m_rate) ? '80%' : this.m_rate;
             }
             /* setter */
-            if ('number' !== typeof prm) {
-                throw new Error('invalid parameter');
-            }
-            if ((0 > prm) || (100 < prm)) {
-                throw new Error('invalid parameter');
-            }
-            this.m_rate = prm;
+            this.m_rate = mf.func.getSizeObj(
+                ('number' === typeof prm) ? prm + '%' : prm
+            );
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -80,5 +76,5 @@ mofron.layout.HrzCenter = class extends mofron.Layout {
         }
     }
 }
-module.exports = mofron.layout.HrzCenter;
+module.exports = mf.layout.HrzCenter;
 /* end of file */

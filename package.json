@@ -1,6 +1,6 @@
 {
   "name": "mofron-layout-hrzcenter",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "horizon center layout of mofron",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/simpart/mofron-layout-hrzcenter.git"
   },
   "keywords": [
-    "mofron"
+    "front-end"
   ],
   "author": "simparts",
   "license": "SEE LICENSE IN LICENSE",
