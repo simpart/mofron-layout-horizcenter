@@ -1,6 +1,6 @@
 {
   "name": "mofron-layout-hrzcenter",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "horizon center layout of mofron",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "front-end"
   ],
   "author": "simparts",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/simpart/mofron-layout-hrzcenter/issues"
   },
