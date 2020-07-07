@@ -1,0 +1,10 @@
+<setting>
+    <tag load="mofron-comp-text">Text</tag>
+    <tag load="mofron-layout-hrzcenter">HrzCent</tag>
+</setting>
+
+<div width=100% layout=HrzCent:80>
+    <Text>Horizontal</Text>
+    <Text>Center</Text>
+    <Text>Layout</Text>
+</div>

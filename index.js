@@ -1,24 +1,31 @@
 /**
  * @file mofron-layout-hrzcenter/index.js
  * @brief horizon center layout
- * @author simpart
+ * @license MIT
  */
-const mf = require('mofron');
 
-mf.layout.HrzCenter = class extends mf.Layout {
+module.exports = class extends mofron.class.Layout {
     /**
      * initialize horizon center layout
      * 
-     * @param p1 (object) layout option
-     * @param p1 (number) center rate
-     * @param p2 (string) center type
+     * @param (mixed) object: layout option
+     *                number: center rate
+     * @param (string) center type
+     * @short rate,type
+     * @type private
      */
     constructor (po, p2) {
         try {
             super();
             this.name('HrzCenter');
-            this.prmMap(['rate', 'type']);
-            this.prmOpt(po, p2);
+            this.shortForm('rate', 'type');
+            
+            this.confmng().add('rate', { type: 'number', init: 80 });
+            this.confmng().add('type', { type: 'string', select: ['relative', 'margin', 'padding'], init: 'relative' });
+            
+	    if (0 < arguments.length) {
+                this.config(po, p2);
+            }
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -28,21 +35,33 @@ mf.layout.HrzCenter = class extends mf.Layout {
     /**
      * layout contents
      *
-     * @note private method
+     * @type private
      */
     contents (idx, tgt) {
         try {
+	console.log("hz");
+
+	    let tdom = tgt.rootDom();
+	    let pdom = tgt.rootDom()[0].parent();
+            if ( (null !== pdom) && ("flex" === pdom.style("display")) ) {
+                tdom = [tgt.rootDom()[0]];
+	    }
+            
             if ('relative' === this.type()) {
-                tgt.adom().style({
-                    position : this.type(),
-                    left     : (100 - this.rate())/2 + '%'
-                });
+	        for (let tidx in tdom) {
+                    tdom[tidx].style({
+                        position : this.type(),
+                        left     : (100 - this.rate())/2 + '%',
+			width    : this.rate() + '%'
+                    });
+		}
             } else {
-                let set_style = {};
+                let set_style = { width: this.rate() + '%' };
                 set_style[this.type() + '-left'] =  (100 - this.rate())/2 + '%';
-                tgt.adom().style(set_style);
+		for (let tidx in tdom) {
+                    tdom[tidx].style(set_style);
+		}
             }
-            tgt.width(this.rate() + '%');
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -52,18 +71,18 @@ mf.layout.HrzCenter = class extends mf.Layout {
     /**
      * setter/getter center rate
      *
-     * @param p1 (number) center rate 
-     * @param p1 (undefined) call as getter
+     * @param (number) center rate 
+     *                 undefined: call as getter
      * @return (number) center rate
+     * @type parameter
      */
     rate (prm) {
         try {
-            let ret = this.member('rate', 'number', prm, 80);
             if ( (undefined !== prm) &&
                  ( (0 > prm) || (100 < prm))) {
                 throw new Error('invalid parameter');
             }
-            return ret;
+            return this.confmng("rate", prm);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -73,18 +92,18 @@ mf.layout.HrzCenter = class extends mf.Layout {
     /**
      * setter/getter center type
      *
-     * @param p1 (string) center type
-     * @param p1 (undefined) call as getter
+     * @param (string) center type
+     *                 undefined: call as getter
      * @return (string) center type
+     * @type parameter
      */
     type (prm) {
         try {
-            return this.member('type', ['relative', 'margin', 'padding'], prm, 'relative');
+	    return this.confmng("type", prm);
         } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
 }
-module.exports = mf.layout.HrzCenter;
 /* end of file */

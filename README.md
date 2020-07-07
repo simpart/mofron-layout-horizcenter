@@ -1,27 +1,34 @@
 # mofron-layout-hrzcenter
-Horizon Center Layout for mofron component.<br>
-please see [here](https://github.com/simpart/mofron) about an overview of mofron.
+[mofron](https://mofron.github.io/mofron/) is module based frontend framework.
+
+horizon center layout
+
 
 # Install
-
-```bash
-npm install mofron-layout-hrzcenter
+```
+npm install mofron mofron-layout-hrzcenter
 ```
 
-# sample
-```javascript
-let Mof    = require('mofron');
-let Frame  = require('mofron-comp-frame');
-let Button = require('mofron-comp-button');
-let Center = require('mofron-layout-hrzcenter');
+# Sample
+```html
+<setting>
+    <tag load="mofron-comp-text">Text</tag>
+    <tag load="mofron-layout-hrzcenter">HrzCent</tag>
+</setting>
 
-new Frame({
-    param   : [150,300],
-    child   : [
-                  new Button('Test 1'),
-                  new Button('Test 2')
-              ],
-    layout  : new Center(70),
-    visible : true
-});
+<div width=100% layout=HrzCent:80>
+    <Text>Horizontal</Text>
+    <Text>Center</Text>
+    <Text>Layout</Text>
+</div>
 ```
+
+# Parameter
+
+| Short<br>Form | Parameter Name | Type | Description |
+|:-------------:|:---------------|:-----|:------------|
+| ◯  | rate | number | center rate  |
+| | | | undefined: call as getter |
+| ◯  | type | string | center type |
+| | | | undefined: call as getter |
+
