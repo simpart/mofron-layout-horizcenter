@@ -39,8 +39,6 @@ module.exports = class extends mofron.class.Layout {
      */
     contents (idx, tgt) {
         try {
-	console.log("hz");
-
 	    let tdom = tgt.rootDom();
 	    let pdom = tgt.rootDom()[0].parent();
             if ( (null !== pdom) && ("flex" === pdom.style("display")) ) {
