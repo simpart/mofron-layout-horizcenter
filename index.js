@@ -17,7 +17,7 @@ module.exports = class extends mofron.class.Layout {
     constructor (po, p2) {
         try {
             super();
-            this.name('HrzCenter');
+            this.modname('HrzCenter');
             this.shortForm('rate', 'type');
             
             this.confmng().add('rate', { type: 'number', init: 80 });

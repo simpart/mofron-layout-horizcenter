@@ -1,6 +1,6 @@
 {
   "name": "mofron-layout-hrzcenter",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "horizon center layout of mofron",
   "main": "index.js",
   "scripts": {
